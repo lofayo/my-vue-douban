@@ -6,6 +6,10 @@ import VueResource from 'vue-resource'
 import App from './App'
 // import router from './router'
 
+// common css
+import '@static/reset.css'
+
+
 Vue.config.productionTip = false
 // 2、不知道干啥的
 Vue.use(VueResource)

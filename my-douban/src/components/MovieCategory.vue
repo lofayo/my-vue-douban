@@ -11,8 +11,8 @@
         </p>
         <p class="movie_title">{{subject.title}}</p>
         <p>
-          <img class="star" v-for='(star,index) of subject.rating.star' v-bind:key='index' v-if='star === 1' src="@/images/icon/star.png" />
-          <img class="star" v-for='star of subject.rating.star' v-if='star === 0' src="@/images/icon/none-star.png" />
+          <img class="star" v-for='(star,index) of subject.rating.star' v-bind:key='index' v-if='star === 1' src="@static/images/icon/star.png" />
+          <img class="star" v-for='star of subject.rating.star' v-if='star === 0' src="@static/images/icon/none-star.png" />
           <span style="margin-left: 12px;">{{subject.rating.average}}</span>
         </p>
       </div>
@@ -40,7 +40,9 @@
 
   .more {
     color: #00cc00;
+    font-weight: bold;
   }
+
 
   .movie_item_box {
     display: flex;

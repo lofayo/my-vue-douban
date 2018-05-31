@@ -1,14 +1,21 @@
 <template>
-  <div id="app">
-    <movie-item v-for='(item,index) of movieCategory' v-bind:key='index' v-bind:subjects='item.subjects' v-bind:category='item.category' />
+  <div id="app" style="background: #eee;">
+    <!-- <MovieCategory
+      v-for='(item,index) of movieCategory'
+      v-bind:key='index'
+      v-bind:subjects='item.subjects'
+      v-bind:category='item.category'
+    /> -->
+    <Subject />
   </div>
 </template>
 <script>
-  import movieItem from '@/components/movieItem'
-  import API from '@/js/api.js'
-  console.log(API)
+  import MovieCategory from '@/components/MovieCategory'
+  import Subject from '@/components/Subject'
+  import API from '@static/js/api.js'
+  import utils from '@static/js/utils.js'
   const api = API.api
-  const addStarArray = API.addStarArray
+  const addStarArray = utils.addStarArray
 
   export default {
     name: 'App',
@@ -20,37 +27,42 @@
     created() {
       let _this = this
 
-      function handleCallback(subjects, category) {
+      // 对请求数据的处理
+      function handleDataCallback(subjects, category) {
         let tempJson = {}
         tempJson['category'] = category
         tempJson['subjects'] = subjects
         addStarArray(subjects)
         _this.movieCategory.push(tempJson)
       }
-      // let url = 'https://api.douban.com/v2/movie/in_theaters'
+
+      // 循环遍历api中url，并发起跨域请求jsonp
       for (let i = 0; i < 3; i++) {
         let url = api[i].url + '?count=3'
-        this.$http.jsonp(url, { callback: 'handleCallback' })
+        this.$http.jsonp(url, { callback: 'handleDataCallback' })
           .then(res => {
-            handleCallback(res.data.subjects, api[i].category)
+            handleDataCallback(res.data.subjects, api[i].category)
           })
       }
     },
+
     components: {
-      "movie-item": movieItem
+      "MovieCategory": MovieCategory,
+      "Subject": Subject,
     }
   }
 
 </script>
 <style>
-  * {
-    padding: 0;
-    margin: 0;
+  #app {
+    font-size: 14px;
+    letter-spacing: 2px;
   }
 
-  #app {
-    background: #ddd;
-    font-size: 12px;
+  .more {
+    color: #00cc00;
+    font-weight: bold;
+    padding: 12px 0;
   }
 
 </style>
