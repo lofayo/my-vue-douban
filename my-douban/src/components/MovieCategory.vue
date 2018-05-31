@@ -6,26 +6,43 @@
     </div>
     <div class="movie_item_box">
       <div class="movie_item" v-for='subject of subjects'>
-        <p class="movie_img">
-          <img v-bind:src="subject.images.large">
-        </p>
-        <p class="movie_title">{{subject.title}}</p>
-        <p>
-          <img class="star" v-for='(star,index) of subject.rating.star' v-bind:key='index' v-if='star === 1' src="@static/images/icon/star.png" />
-          <img class="star" v-for='star of subject.rating.star' v-if='star === 0' src="@static/images/icon/none-star.png" />
-          <span style="margin-left: 12px;">{{subject.rating.average}}</span>
-        </p>
+        <router-link class='router_link' to='/Subject'>
+          <p class="movie_img">
+            <img v-bind:src="subject.images.large">
+          </p>
+          <p class="movie_title">{{subject.title}}</p>
+          <p>
+            <img v-for='(item,index) in subject.rating.star' v-bind:key='index' v-bind:src="item === 1 ? '/static/images/icon/star.png' : '/static/images/icon/star.png'" alt="" @error='onImgError' class="star">
+            <span style="margin-left: 12px;">{{subject.rating.average}}</span>
+          </p>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 <script>
   export default {
-    props: ['subjects', 'category']
+    props: ['subjects', 'category'],
+    methods: {
+      onImgError(e) {
+        e.target.src = '/static/images/lost.jpg'
+      }
+    }
   }
 
 </script>
 <style scoped>
+  .router_link {
+    display: inline-block;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .category_page {
+    background: #ccc;
+  }
+
   .category_box {
     padding: 10px;
     margin-bottom: 10px;
@@ -35,7 +52,7 @@
   .category_title {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
   }
 
   .more {
@@ -53,7 +70,7 @@
     width: 30%;
   }
 
-  .movie_item>p {
+  .movie_item p {
     margin-bottom: 10px;
   }
 
@@ -71,11 +88,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .star {
-    width: 12px;
-    height: 12px;
   }
 
 </style>

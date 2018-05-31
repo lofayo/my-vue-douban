@@ -1,9 +1,10 @@
 <template>
-  <div class="subject_box" v-if='!isEmptySubject'>
+  <div>2222</div>
+  <!--   <div class="subject_box" v-if='!isEmptySubject'>
     <div class="subject_header" v-bind:style="{backgroundImage: 'url('+subject.images.large+')'}">
       <div class="header_content">
         <div class="header_content_img">
-          <img v-bind:src="subject.images.large" alt="">
+          <img v-bind:src="subject.images.large" alt="" @error='onImgError'>
         </div>
         <div class="header_content_text">
           <p>{{subject.title}}</p>
@@ -11,10 +12,10 @@
             <span>{{subject.rating.average}}</span>
             <span style="display: flex;flex-direction: column;justify-content:space-between;">
               <i>
-                <img v-for='(item,index) in subject.rating.star' v-bind:key='index' v-bind:src="item === 1 ? '../../static/images/icon/star.png' : '../../static/images/icon/star.png'" alt="">
+                <img v-for='(item,index) in subject.rating.star' v-bind:key='index' v-bind:src="item === 1 ? '/static/images/icon/star.png' : '/static/images/icon/star.png'" alt="" @error='onImgError' class="star">
               </i>
               <i style="margin-top:12px;">
-                10000人评价
+                {{subject.comments_count}}人评价
               </i>
             </span>
           </p>
@@ -49,7 +50,7 @@
         <p class="item_title">主演：</p>
         <div class="cast">
           <div class="cast_item" v-for='cast in subject.casts'>
-            <img :src="cast.avatars.large" v-bind:error.native='onImgError' alt="">
+            <img :src="cast.avatars.large" alt="" @error='onImgError'>
             <span>{{cast.name}}</span>
             <span>{{cast.name_en}}</span>
           </div>
@@ -65,7 +66,7 @@
         <p class="item_title">电影剧照：</p>
         <div>
           <div class="movie_photos">
-            <img v-for='photo in subject.photos' :src="photo.image" alt="">
+            <img v-for='photo in subject.photos' :src="photo.image" alt="" @error='onImgError'>
           </div>
           <p class="more">更多剧照...</p>
         </div>
@@ -75,7 +76,7 @@
         <div>
           <div class="comment_item" v-for='comment in subject.popular_comments'>
             <div class="comment_author">
-              <img :src="comment.author.avatar" alt="">
+              <img :src="comment.author.avatar" alt="" @error='onImgError'>
               <span>{{comment.author.name}}</span>
               <span>{{comment.created_at}}</span>
             </div>
@@ -91,7 +92,7 @@
         <div>
           <div class="comment_item" v-for='review in subject.popular_reviews'>
             <div class="comment_author">
-              <img :src="review.author.avatar" alt="">
+              <img :src="review.author.avatar" alt="" @error='onImgError'>
               <span>{{review.author.name}}</span>
             </div>
             <div class="comment_title">
@@ -105,19 +106,17 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 <script>
   import utils from '@static/js/utils.js'
   const addStarArray = utils.addStarArray
   const isEmptyJson = utils.isEmptyJson
-
   export default {
     data() {
       return {
         subject: {},
-        isEmptySubject: true,
-        onImgError: 'this.src="' + require('../../static/images/me.jpg') + '"'
+        isEmptySubject: true
       }
     },
     created() {
@@ -134,12 +133,20 @@
         .then(res => {
           handleDataCallback(res.data)
         })
-
+    },
+    methods: {
+      onImgError(e) {
+        e.target.src = '/static/images/lost.jpg'
+      }
     }
   }
 
 </script>
 <style scoped>
+  .subject_box {
+    background: #fff;
+  }
+
   .subject_header {
     width: 100%;
     height: 240px;

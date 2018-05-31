@@ -1,12 +1,8 @@
 <template>
-  <div id="app" style="background: #eee;">
-    <!-- <MovieCategory
-      v-for='(item,index) of movieCategory'
-      v-bind:key='index'
-      v-bind:subjects='item.subjects'
-      v-bind:category='item.category'
-    /> -->
-    <Subject />
+  <div id="app">
+    <MovieCategory v-for='(item,index) of movieCategory' v-bind:key='index' v-bind:subjects='item.subjects' v-bind:category='item.category' />
+    <!-- <Subject /> -->
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -55,6 +51,7 @@
 </script>
 <style>
   #app {
+    background: #eee;
     font-size: 14px;
     letter-spacing: 2px;
   }
@@ -63,6 +60,11 @@
     color: #00cc00;
     font-weight: bold;
     padding: 12px 0;
+  }
+
+  .star {
+    width: 12px;
+    height: 12px;
   }
 
 </style>
