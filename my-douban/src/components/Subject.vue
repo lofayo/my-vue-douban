@@ -1,6 +1,6 @@
 <template>
-  <div>2222</div>
-  <!--   <div class="subject_box" v-if='!isEmptySubject'>
+  <!-- <div>2222</div> -->
+  <div class="subject_box" v-if='!isEmptySubject'>
     <div class="subject_header" v-bind:style="{backgroundImage: 'url('+subject.images.large+')'}">
       <div class="header_content">
         <div class="header_content_img">
@@ -12,7 +12,7 @@
             <span>{{subject.rating.average}}</span>
             <span style="display: flex;flex-direction: column;justify-content:space-between;">
               <i>
-                <img v-for='(item,index) in subject.rating.star' v-bind:key='index' v-bind:src="item === 1 ? '/static/images/icon/star.png' : '/static/images/icon/star.png'" alt="" @error='onImgError' class="star">
+                <img v-for='(item,index) in subject.rating.star' v-bind:key='index' v-bind:src="item === 1 ? '/static/images/icon/star.png' : '/static/images/icon/none-star.png'" alt="" @error='onImgError' class="star">
               </i>
               <i style="margin-top:12px;">
                 {{subject.comments_count}}人评价
@@ -32,16 +32,16 @@
             <span v-for='(item,index) in subject.genres'>{{item}}/</span>
             <span>{{subject.year}}</span>
           </p>
-          <p>导演：
+          <p v-if='subject.directors'>导演：
             <span v-for='item in subject.directors'>{{item.name}}/</span>
           </p>
-          <p>主演：
+          <p v-if='subject.casts'>主演：
             <span v-for='item in subject.casts'>{{item.name}}/</span>
           </p>
-          <p>上映日期：
+          <p v-if='subject.pubdates'>上映日期：
             <span v-for='item in subject.pubdates'>{{item}}/</span>
           </p>
-          <p>片长：
+          <p v-if='subject.durations'>片长：
             <span v-for='item in subject.durations'>{{item}}/</span>
           </p>
         </div>
@@ -62,7 +62,7 @@
           {{subject.summary}}
         </div>
       </div>
-      <div class="content_item">
+      <div v-if='subject.photos' class="content_item">
         <p class="item_title">电影剧照：</p>
         <div>
           <div class="movie_photos">
@@ -71,7 +71,7 @@
           <p class="more">更多剧照...</p>
         </div>
       </div>
-      <div class="content_item">
+      <div v-if='subject.popular_comments' class="content_item">
         <p class="item_title">评论：</p>
         <div>
           <div class="comment_item" v-for='comment in subject.popular_comments'>
@@ -87,7 +87,7 @@
           <p class="more">更多评论：</p>
         </div>
       </div>
-      <div class="content_item">
+      <div v-if='subject.popular_reviews' class="content_item">
         <p class="item_title">影评：</p>
         <div>
           <div class="comment_item" v-for='review in subject.popular_reviews'>
@@ -106,7 +106,7 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 <script>
   import utils from '@static/js/utils.js'
@@ -120,6 +120,7 @@
       }
     },
     created() {
+      let subject_id = this.$route.params.id
       let _this = this
 
       function handleDataCallback(subject) {
@@ -128,7 +129,7 @@
         _this.isEmptySubject = false
       }
 
-      let url = 'https://douban.uieee.com/v2/movie/subject/27133303'
+      let url = 'https://api.douban.com/v2/movie/subject/' + subject_id
       this.$http.jsonp(url, { callback: 'handleDataCallback' })
         .then(res => {
           handleDataCallback(res.data)

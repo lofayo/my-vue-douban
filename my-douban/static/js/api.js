@@ -1,4 +1,5 @@
-const domain = 'https://douban.uieee.com/'
+// const domain = 'https://douban.uieee.com/'
+const domain = 'https://api.douban.com/'
 
 let in_theaters = domain + 'v2/movie/in_theaters'
 let coming_soon = domain + 'v2/movie/coming_soon'
