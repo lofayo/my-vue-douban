@@ -123,16 +123,11 @@
       let subject_id = this.$route.params.id
       let _this = this
 
-      function handleDataCallback(subject) {
-        addStarArray(subject)
-        _this.subject = subject
-        _this.isEmptySubject = false
-      }
-
-      let url = 'https://api.douban.com/v2/movie/subject/' + subject_id
+      let url = 'https://api.douban.com/v2/book/' + subject_id
       this.$http.jsonp(url, { callback: 'handleDataCallback' })
         .then(res => {
-          handleDataCallback(res.data)
+          _this.subject = res.data
+          _this.isEmptySubject = false
         })
     },
     methods: {
@@ -276,7 +271,6 @@
   .comment_author>* {
     margin: auto 0;
   }
-
 
   .comment_author>img {
     width: 64px;

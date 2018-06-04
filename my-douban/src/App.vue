@@ -11,7 +11,6 @@
 </script>
 <style>
   #app {
-    background: #eee;
     font-size: 14px;
     letter-spacing: 2px;
   }

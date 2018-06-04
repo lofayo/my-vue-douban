@@ -1,5 +1,5 @@
-// const domain = 'https://douban.uieee.com/'
-const domain = 'https://api.douban.com/'
+const domain = 'https://douban.uieee.com/'
+// const domain = 'https://api.douban.com/'
 
 let in_theaters = domain + 'v2/movie/in_theaters'
 let coming_soon = domain + 'v2/movie/coming_soon'
@@ -44,9 +44,22 @@ const api = [{
   url: new_movies
 }]
 
+
+const bookApi = [{
+  category: '文学',
+  url: 'https://douban.uieee.com/v2/book/search?tag=历史'
+}, {
+  category: '爱情',
+  url: 'https://douban.uieee.com/v2/book/search?tag=爱情'
+}, {
+  category: '计算机',
+  url: 'https://douban.uieee.com/v2/book/search?tag=计算机'
+}]
+
 export default {
-  api: api,
-  movie_subject_api: movie_subject_api,
-  movie_search_api: movie_search_api,
-  movie_celebrity_api: movie_celebrity_api
+  api,
+  movie_subject_api,
+  movie_search_api,
+  movie_celebrity_api,
+  bookApi
 }

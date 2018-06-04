@@ -1,44 +1,39 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // 配置于webpack.base.conf.js
-import Home from '@/components/Home'
-import MovieCategory from '@/components/MovieCategory'
-import Subject from '@/components/Subject'
+import HomeView from '@/views/HomeView'
+import MovieCategoryView from '@/views/movieViews/MovieCategoryView'
+import MovieItemsView from '@/views/movieViews/MovieItemsView'
+import MovieDetailView from '@/views/movieViews/MovieDetailView'
+
+import BookCategoryView from '@/views/bookViews/BookCategoryView'
+import BookItemsView from '@/views/bookViews/BookItemsView'
+import BookDetailView from '@/views/bookViews/BookDetailView'
+
 
 Vue.use(Router)
-
-// export default new Router({
-//   routes: [{
-//     path: '/',
-//     redirect: '/pages/'
-//   }, {
-//     path: '/pages',
-//     component: Home,
-//     children: [{
-//       path: '',
-//       redirect: '/pages/category'
-//     }, {
-//       path: 'category',
-//       name: 'MovieCategory',
-//       component: MovieCategory,
-//     }]
-//   }, {
-//     path: '/subject/:id',
-//     name: 'Subject',
-//     component: Subject
-//   }]
-// })
-
 
 export default new Router({
   routes: [{
     path: '/',
-    redirect: '/category'
+    redirect: '/bookCategory'
   }, {
     path: '/category',
-    component: MovieCategory
+    component: MovieCategoryView
   }, {
-    path: '/subject/:id',
-    component: Subject
+    path: '/movieItems/:id',
+    component: MovieItemsView
+  }, {
+    path: '/movieDetail/:id',
+    component: MovieDetailView
+  }, {
+    path: '/bookCategory',
+    component: BookCategoryView
+  }, {
+    path: '/bookItems/:id',
+    component: BookItemsView
+  }, {
+    path: '/bookDetail/:id',
+    component: BookDetailView
   }]
 })
